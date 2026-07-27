@@ -21,10 +21,11 @@ signed evidence, and repository-wide enforcement have not yet been proven.
 `agentd` may consume a signed constitutional release. It cannot author,
 approve, or activate one.
 
-Closed artifact schemas and candidate validation are deliberately isolated in
-[issue #3](https://github.com/cenetex/develop-constitution/issues/3) and
-[issue #2](https://github.com/cenetex/develop-constitution/issues/2). Validation
-is model checking, not ratification evidence; only a separately controlled
+Closed artifact schemas are included by
+[issue #3](https://github.com/cenetex/develop-constitution/issues/3). Candidate
+validation remains isolated in
+[issue #2](https://github.com/cenetex/develop-constitution/issues/2): it is
+model checking, not ratification evidence. Only a separately controlled
 verifier may bind the active predecessor.
 
 ## Status

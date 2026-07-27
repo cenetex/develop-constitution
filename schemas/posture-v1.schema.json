@@ -1,0 +1,202 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "scopedAuthorization": {
+      "additionalProperties": false,
+      "properties": {
+        "capability": {
+          "pattern": "^[a-z][a-z0-9_.-]+$",
+          "type": "string"
+        },
+        "control_attestation_set_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "control_plane_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "expires_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "maturity_level": {
+          "enum": [
+            "L1",
+            "L2",
+            "L3",
+            "L4"
+          ]
+        },
+        "promotion_evidence_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "repository": {
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$",
+          "type": "string"
+        },
+        "risk_class": {
+          "enum": [
+            "R0",
+            "R1",
+            "R2"
+          ]
+        }
+      },
+      "required": [
+        "control_plane_digest",
+        "repository",
+        "risk_class",
+        "capability",
+        "maturity_level",
+        "promotion_evidence_digest",
+        "control_attestation_set_digest",
+        "expires_at"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://github.com/cenetex/develop-constitution/schemas/posture-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "activation_envelope_digest": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/digest"
+        }
+      ]
+    },
+    "api_version": {
+      "const": "develop.cenetex/v1"
+    },
+    "baseline_maturity_level": {
+      "const": "L0"
+    },
+    "constitution_revision": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "type": "string"
+    },
+    "constitution_source_digest": {
+      "anyOf": [
+        {
+          "const": "PENDING"
+        },
+        {
+          "$ref": "#/$defs/digest"
+        }
+      ]
+    },
+    "control_attestation_set_digest": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/digest"
+        }
+      ]
+    },
+    "effective_at": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
+    },
+    "kind": {
+      "const": "PostureActivation"
+    },
+    "known_control_gaps": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "mode": {
+      "const": "quarantine"
+    },
+    "previous_posture_digest": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/digest"
+        }
+      ]
+    },
+    "reason": {
+      "minLength": 20,
+      "type": "string"
+    },
+    "release_manifest_digest": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/digest"
+        }
+      ]
+    },
+    "scoped_authorizations": {
+      "items": {
+        "$ref": "#/$defs/scopedAuthorization"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "sequence": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "active"
+      ]
+    },
+    "tightening_denials": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "workspace_id": {
+      "const": "develop"
+    }
+  },
+  "required": [
+    "api_version",
+    "kind",
+    "status",
+    "workspace_id",
+    "sequence",
+    "previous_posture_digest",
+    "constitution_revision",
+    "constitution_source_digest",
+    "release_manifest_digest",
+    "activation_envelope_digest",
+    "control_attestation_set_digest",
+    "baseline_maturity_level",
+    "mode",
+    "effective_at",
+    "reason",
+    "known_control_gaps",
+    "tightening_denials",
+    "scoped_authorizations"
+  ],
+  "title": "Develop Posture Activation v1",
+  "type": "object"
+}

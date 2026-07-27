@@ -1,0 +1,104 @@
+{
+  "$id": "https://github.com/cenetex/develop-constitution/schemas/exception-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "active_manifest_digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "api_version": {
+      "const": "develop.cenetex/v1"
+    },
+    "approval_envelope_digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "clause_id": {
+      "pattern": "^C-[0-9]{3}$",
+      "type": "string"
+    },
+    "compensating_controls": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "expires_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "head_sha": {
+      "pattern": "^[0-9a-f]{40}$",
+      "type": "string"
+    },
+    "issue": {
+      "format": "uri",
+      "type": "string"
+    },
+    "kind": {
+      "const": "ExceptionProposal"
+    },
+    "operation": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "paths": {
+      "items": {
+        "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?(/|$))[A-Za-z0-9._/-]+$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "proposal_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]+$",
+      "type": "string"
+    },
+    "reason": {
+      "minLength": 20,
+      "type": "string"
+    },
+    "repository": {
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$",
+      "type": "string"
+    },
+    "requesting_principal": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "starts_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "task_id": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "api_version",
+    "kind",
+    "proposal_id",
+    "active_manifest_digest",
+    "clause_id",
+    "issue",
+    "task_id",
+    "repository",
+    "paths",
+    "operation",
+    "head_sha",
+    "requesting_principal",
+    "reason",
+    "compensating_controls",
+    "approval_envelope_digest",
+    "starts_at",
+    "expires_at"
+  ],
+  "title": "Constitution Exception Proposal v1",
+  "type": "object"
+}

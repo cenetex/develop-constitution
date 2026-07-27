@@ -1,0 +1,737 @@
+{
+  "$defs": {
+    "capability": {
+      "additionalProperties": false,
+      "properties": {
+        "brokered": {
+          "type": "boolean"
+        },
+        "effect": {
+          "type": "string"
+        },
+        "external": {
+          "type": "boolean"
+        },
+        "maximum_ttl_seconds": {
+          "maximum": 86400,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "required_bindings": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "effect",
+        "external",
+        "brokered",
+        "maximum_ttl_seconds",
+        "required_bindings"
+      ],
+      "type": "object"
+    },
+    "clause": {
+      "additionalProperties": false,
+      "properties": {
+        "accountable_role": {
+          "type": "string"
+        },
+        "article": {
+          "type": "string"
+        },
+        "control_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "on_violation": {
+          "additionalProperties": false,
+          "properties": {
+            "decision": {
+              "const": "deny"
+            },
+            "demote_to": {
+              "const": "L0"
+            },
+            "incident_severity": {
+              "enum": [
+                "high",
+                "critical"
+              ]
+            }
+          },
+          "required": [
+            "decision",
+            "incident_severity",
+            "demote_to"
+          ],
+          "type": "object"
+        },
+        "strength": {
+          "enum": [
+            "MUST",
+            "MUST_NOT"
+          ]
+        },
+        "subjects": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "test_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "text": {
+          "minLength": 20,
+          "type": "string"
+        },
+        "unwaivable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "article",
+        "strength",
+        "text",
+        "subjects",
+        "unwaivable",
+        "accountable_role",
+        "control_ids",
+        "test_ids",
+        "on_violation"
+      ],
+      "type": "object"
+    },
+    "control": {
+      "additionalProperties": false,
+      "properties": {
+        "enforcement_point": {
+          "type": "string"
+        },
+        "fail_mode": {
+          "enum": [
+            "deny",
+            "terminate"
+          ]
+        },
+        "kind": {
+          "const": "preventive"
+        },
+        "owner": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "owner",
+        "enforcement_point",
+        "fail_mode"
+      ],
+      "type": "object"
+    },
+    "digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "lifecycle": {
+      "additionalProperties": false,
+      "properties": {
+        "initial_state": {
+          "type": "string"
+        },
+        "states": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "terminal_states": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "transitions": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "initial_state",
+        "states",
+        "terminal_states",
+        "transitions"
+      ],
+      "type": "object"
+    },
+    "maturityLevel": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "type": "string"
+        },
+        "maximum_autonomous_mutation_risk": {
+          "enum": [
+            "none",
+            "R0",
+            "R1",
+            "R2"
+          ]
+        },
+        "minimum_adversarial_tests": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "minimum_governed_tasks": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "minimum_observation_days": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "minimum_repositories": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nonhuman_capability_ceiling": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "promotion_approvals": {
+          "minimum": 2,
+          "type": "integer"
+        },
+        "rank": {
+          "maximum": 4,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "required_controls": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "rank",
+        "name",
+        "authority",
+        "maximum_autonomous_mutation_risk",
+        "nonhuman_capability_ceiling",
+        "minimum_observation_days",
+        "minimum_governed_tasks",
+        "required_controls",
+        "promotion_approvals"
+      ],
+      "type": "object"
+    },
+    "riskClass": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "minimum_maturity_for_automated_publication": {
+          "anyOf": [
+            {
+              "enum": [
+                "L0",
+                "L1",
+                "L2",
+                "L3",
+                "L4"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "rank": {
+          "maximum": 3,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "rank",
+        "name",
+        "description",
+        "minimum_maturity_for_automated_publication"
+      ],
+      "type": "object"
+    },
+    "role": {
+      "additionalProperties": false,
+      "properties": {
+        "absolute_denials": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "eligible_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "principal_kinds": {
+          "items": {
+            "enum": [
+              "human",
+              "service",
+              "process"
+            ]
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "separated_from": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "role": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "role",
+              "scope"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "principal_kinds",
+        "eligible_capabilities",
+        "absolute_denials",
+        "separated_from"
+      ],
+      "type": "object"
+    },
+    "test": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "evidence_schema": {
+          "const": "schemas/control-attestation-v1.schema.json"
+        },
+        "kind": {
+          "const": "adversarial"
+        },
+        "runner": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tier": {
+          "enum": [
+            "model",
+            "integration",
+            "platform"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "description",
+        "tier",
+        "runner",
+        "evidence_schema"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://github.com/cenetex/develop-constitution/schemas/constitution-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "amendment_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "agents_may_activate": {
+          "const": false
+        },
+        "expansion_cooling_period_seconds": {
+          "minimum": 259200,
+          "type": "integer"
+        },
+        "governing_policy": {
+          "const": "previous-active-constitution"
+        },
+        "independent_security_review": {
+          "const": true
+        },
+        "minimum_human_approvals": {
+          "minimum": 2,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "governing_policy",
+        "minimum_human_approvals",
+        "expansion_cooling_period_seconds",
+        "independent_security_review",
+        "agents_may_activate"
+      ],
+      "type": "object"
+    },
+    "api_version": {
+      "const": "develop.cenetex/v1"
+    },
+    "capabilities": {
+      "additionalProperties": {
+        "$ref": "#/$defs/capability"
+      },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "clauses": {
+      "additionalProperties": false,
+      "minProperties": 1,
+      "patternProperties": {
+        "^C-[0-9]{3}$": {
+          "$ref": "#/$defs/clause"
+        }
+      },
+      "type": "object"
+    },
+    "control_attestation_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "independent_verifier_required": {
+          "const": true
+        },
+        "maximum_age_seconds": {
+          "maximum": 86400,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "required_bindings": {
+          "const": [
+            "constitution_manifest_digest",
+            "control_id",
+            "implementation_digest",
+            "environment_digest",
+            "repository",
+            "risk_class",
+            "capability",
+            "runner_identity",
+            "verifier_identity",
+            "test_evidence_digest",
+            "result",
+            "observed_at",
+            "expires_at",
+            "verifier_signature_envelope_digest"
+          ]
+        },
+        "required_for_active_maturity": {
+          "const": true
+        },
+        "schema": {
+          "const": "schemas/control-attestation-v1.schema.json"
+        }
+      },
+      "required": [
+        "required_for_active_maturity",
+        "schema",
+        "maximum_age_seconds",
+        "independent_verifier_required",
+        "required_bindings"
+      ],
+      "type": "object"
+    },
+    "controls": {
+      "additionalProperties": {
+        "$ref": "#/$defs/control"
+      },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "defaults": {
+      "additionalProperties": false,
+      "properties": {
+        "control_failure": {
+          "const": "deny"
+        },
+        "decision": {
+          "const": "deny"
+        },
+        "signature_failure": {
+          "const": "deny"
+        },
+        "unknown_capability": {
+          "const": "deny"
+        },
+        "unknown_risk": {
+          "const": "R3"
+        }
+      },
+      "required": [
+        "decision",
+        "unknown_risk",
+        "unknown_capability",
+        "control_failure",
+        "signature_failure"
+      ],
+      "type": "object"
+    },
+    "exception_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum_ttl_seconds": {
+          "maximum": 14400,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "renewal": {
+          "const": "new-proposal-required"
+        },
+        "requires_detached_human_approval": {
+          "const": true
+        },
+        "requires_exact_scope": {
+          "const": true
+        },
+        "unwaivable_clause_exceptions": {
+          "const": "deny"
+        }
+      },
+      "required": [
+        "maximum_ttl_seconds",
+        "requires_exact_scope",
+        "requires_detached_human_approval",
+        "unwaivable_clause_exceptions",
+        "renewal"
+      ],
+      "type": "object"
+    },
+    "incident_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "credential_rotation_after_break_glass": {
+          "const": true
+        },
+        "postmortem_deadline_seconds": {
+          "maximum": 259200,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "restoration_requires_independent_review": {
+          "const": true
+        },
+        "suspected_boundary_failure": {
+          "const": "freeze-and-demote-L0"
+        }
+      },
+      "required": [
+        "suspected_boundary_failure",
+        "postmortem_deadline_seconds",
+        "credential_rotation_after_break_glass",
+        "restoration_requires_independent_review"
+      ],
+      "type": "object"
+    },
+    "invariant": {
+      "minLength": 40,
+      "type": "string"
+    },
+    "kind": {
+      "const": "Constitution"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/lifecycle"
+    },
+    "maturity_levels": {
+      "additionalProperties": false,
+      "properties": {
+        "L0": {
+          "$ref": "#/$defs/maturityLevel"
+        },
+        "L1": {
+          "$ref": "#/$defs/maturityLevel"
+        },
+        "L2": {
+          "$ref": "#/$defs/maturityLevel"
+        },
+        "L3": {
+          "$ref": "#/$defs/maturityLevel"
+        },
+        "L4": {
+          "$ref": "#/$defs/maturityLevel"
+        }
+      },
+      "required": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ],
+      "type": "object"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "const": "develop"
+        },
+        "revision": {
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "ratified",
+            "superseded"
+          ]
+        },
+        "supersedes_manifest_digest": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/digest"
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "revision",
+        "status",
+        "supersedes_manifest_digest"
+      ],
+      "type": "object"
+    },
+    "risk_classes": {
+      "additionalProperties": false,
+      "properties": {
+        "R0": {
+          "$ref": "#/$defs/riskClass"
+        },
+        "R1": {
+          "$ref": "#/$defs/riskClass"
+        },
+        "R2": {
+          "$ref": "#/$defs/riskClass"
+        },
+        "R3": {
+          "$ref": "#/$defs/riskClass"
+        }
+      },
+      "required": [
+        "R0",
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "type": "object"
+    },
+    "roles": {
+      "additionalProperties": {
+        "$ref": "#/$defs/role"
+      },
+      "minProperties": 9,
+      "type": "object"
+    },
+    "scope": {
+      "additionalProperties": false,
+      "properties": {
+        "resource_kinds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "workspace_id": {
+          "const": "develop"
+        }
+      },
+      "required": [
+        "workspace_id",
+        "resource_kinds"
+      ],
+      "type": "object"
+    },
+    "tests": {
+      "additionalProperties": {
+        "$ref": "#/$defs/test"
+      },
+      "minProperties": 1,
+      "type": "object"
+    }
+  },
+  "required": [
+    "api_version",
+    "kind",
+    "metadata",
+    "defaults",
+    "invariant",
+    "scope",
+    "lifecycle",
+    "roles",
+    "capabilities",
+    "risk_classes",
+    "maturity_levels",
+    "clauses",
+    "controls",
+    "tests",
+    "control_attestation_policy",
+    "exception_policy",
+    "amendment_policy",
+    "incident_policy"
+  ],
+  "title": "Develop Constitution v1",
+  "type": "object"
+}

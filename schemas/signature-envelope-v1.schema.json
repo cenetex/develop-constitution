@@ -1,0 +1,112 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "https://github.com/cenetex/develop-constitution/schemas/signature-envelope-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "develop.cenetex/v1"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "domain": {
+      "const": "develop.cenetex/governance/v1"
+    },
+    "expires_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "kind": {
+      "const": "SignatureEnvelope"
+    },
+    "nonce": {
+      "pattern": "^[A-Za-z0-9_-]{16,128}$",
+      "type": "string"
+    },
+    "payload_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "purpose": {
+      "enum": [
+        "constitution-release",
+        "posture-activation",
+        "amendment-approval",
+        "maturity-promotion",
+        "control-attestation"
+      ]
+    },
+    "sequence": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "signatures": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "algorithm": {
+            "enum": [
+              "ssh-ed25519",
+              "webauthn-p256"
+            ]
+          },
+          "key_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "principal_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "signature": {
+            "pattern": "^[A-Za-z0-9+/=_-]{32,}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "principal_id",
+          "key_id",
+          "algorithm",
+          "signature"
+        ],
+        "type": "object"
+      },
+      "minItems": 2,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "target_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "trust_root_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "workspace_id": {
+      "const": "develop"
+    }
+  },
+  "required": [
+    "api_version",
+    "kind",
+    "purpose",
+    "domain",
+    "workspace_id",
+    "target_id",
+    "payload_digest",
+    "trust_root_digest",
+    "sequence",
+    "created_at",
+    "expires_at",
+    "nonce",
+    "signatures"
+  ],
+  "title": "Detached Governance Signature Envelope v1",
+  "type": "object"
+}

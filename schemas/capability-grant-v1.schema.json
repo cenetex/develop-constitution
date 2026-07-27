@@ -1,0 +1,135 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "https://github.com/cenetex/develop-constitution/schemas/capability-grant-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "develop.cenetex/v1"
+    },
+    "bindings": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": "array"
+          }
+        ]
+      },
+      "type": "object"
+    },
+    "capability": {
+      "pattern": "^[a-z][a-z0-9_.-]+$",
+      "type": "string"
+    },
+    "constitution_source_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "control_attestation_digests": {
+      "items": {
+        "$ref": "#/$defs/digest"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "control_plane_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "expires_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "grant_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "issued_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "kind": {
+      "const": "CapabilityGrant"
+    },
+    "lease_attestation_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "nonce": {
+      "pattern": "^[A-Za-z0-9_-]{16,128}$",
+      "type": "string"
+    },
+    "principal_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "principal_kind": {
+      "enum": [
+        "service",
+        "process"
+      ]
+    },
+    "release_manifest_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "repository": {
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$",
+      "type": "string"
+    },
+    "risk_class": {
+      "enum": [
+        "R0",
+        "R1",
+        "R2",
+        "R3"
+      ]
+    },
+    "role": {
+      "pattern": "^[a-z][a-z0-9_]+$",
+      "type": "string"
+    },
+    "task_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "api_version",
+    "kind",
+    "grant_id",
+    "principal_id",
+    "principal_kind",
+    "role",
+    "capability",
+    "task_id",
+    "repository",
+    "risk_class",
+    "constitution_source_digest",
+    "release_manifest_digest",
+    "control_plane_digest",
+    "lease_attestation_digest",
+    "control_attestation_digests",
+    "issued_at",
+    "expires_at",
+    "nonce",
+    "bindings"
+  ],
+  "title": "Non-Human Capability Grant v1",
+  "type": "object"
+}

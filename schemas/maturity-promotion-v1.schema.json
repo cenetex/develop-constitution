@@ -1,0 +1,164 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "https://github.com/cenetex/develop-constitution/schemas/maturity-promotion-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "activate_after": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "adversarial_test_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "api_version": {
+      "const": "develop.cenetex/v1"
+    },
+    "approval_envelope_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "capability": {
+      "pattern": "^[a-z][a-z0-9_.-]+$",
+      "type": "string"
+    },
+    "control_attestation_set_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "control_plane_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "current_maturity": {
+      "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3"
+      ]
+    },
+    "governed_task_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "incident_register_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "independent_security_review_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "integrity_incident_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "issue": {
+      "format": "uri",
+      "type": "string"
+    },
+    "kind": {
+      "const": "MaturityPromotionProposal"
+    },
+    "observation_ended_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "observation_started_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "open_high_critical_findings": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "previous_posture_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "proposal_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "proposed_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "repository": {
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$",
+      "type": "string"
+    },
+    "repository_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "requested_maturity": {
+      "enum": [
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ]
+    },
+    "requesting_component_digest": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/digest"
+        }
+      ]
+    },
+    "requesting_principal": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "risk_class": {
+      "enum": [
+        "R0",
+        "R1",
+        "R2"
+      ]
+    },
+    "task_evidence_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "workspace_id": {
+      "const": "develop"
+    }
+  },
+  "required": [
+    "api_version",
+    "kind",
+    "proposal_id",
+    "issue",
+    "workspace_id",
+    "previous_posture_digest",
+    "control_plane_digest",
+    "repository",
+    "risk_class",
+    "capability",
+    "current_maturity",
+    "requested_maturity",
+    "observation_started_at",
+    "observation_ended_at",
+    "governed_task_count",
+    "repository_count",
+    "adversarial_test_count",
+    "integrity_incident_count",
+    "open_high_critical_findings",
+    "task_evidence_digest",
+    "incident_register_digest",
+    "control_attestation_set_digest",
+    "independent_security_review_digest",
+    "approval_envelope_digest",
+    "requesting_principal",
+    "requesting_component_digest",
+    "proposed_at",
+    "activate_after"
+  ],
+  "title": "Scoped Maturity Promotion Proposal v1",
+  "type": "object"
+}

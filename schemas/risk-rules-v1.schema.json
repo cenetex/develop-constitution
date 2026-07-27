@@ -1,0 +1,110 @@
+{
+  "$id": "https://github.com/cenetex/develop-constitution/schemas/risk-rules-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": "develop.cenetex/v1"
+    },
+    "defaults": {
+      "additionalProperties": false,
+      "properties": {
+        "ambiguous_classification": {
+          "const": "highest"
+        },
+        "unknown_change_kind": {
+          "const": "R3"
+        },
+        "unknown_path": {
+          "const": "R3"
+        }
+      },
+      "required": [
+        "unknown_path",
+        "unknown_change_kind",
+        "ambiguous_classification"
+      ],
+      "type": "object"
+    },
+    "kind": {
+      "const": "RiskRules"
+    },
+    "path_rules": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "pattern": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "reason": {
+            "minLength": 10,
+            "type": "string"
+          },
+          "risk": {
+            "enum": [
+              "R0",
+              "R1",
+              "R2",
+              "R3"
+            ]
+          }
+        },
+        "required": [
+          "pattern",
+          "risk",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "repository_floors": {
+      "additionalProperties": false,
+      "minProperties": 2,
+      "patternProperties": {
+        "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$": {
+          "const": "R3"
+        }
+      },
+      "type": "object"
+    },
+    "semantic_rules": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "change_kind": {
+            "pattern": "^[a-z][a-z0-9-]+$",
+            "type": "string"
+          },
+          "minimum_risk": {
+            "enum": [
+              "R0",
+              "R1",
+              "R2",
+              "R3"
+            ]
+          }
+        },
+        "required": [
+          "change_kind",
+          "minimum_risk"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "api_version",
+    "kind",
+    "defaults",
+    "repository_floors",
+    "path_rules",
+    "semantic_rules"
+  ],
+  "title": "Develop Risk Rules v1",
+  "type": "object"
+}

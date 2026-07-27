@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "https://github.com/cenetex/develop-constitution/schemas/trust-root-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allowed_signature_algorithms": {
+      "items": {
+        "enum": [
+          "ssh-ed25519",
+          "webauthn-p256"
+        ]
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "api_version": {
+      "const": "develop.cenetex/v1"
+    },
+    "effective_at": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
+    },
+    "kind": {
+      "const": "TrustRoot"
+    },
+    "predecessor_root_digest": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/digest"
+        }
+      ]
+    },
+    "principals": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "algorithm": {
+            "enum": [
+              "ssh-ed25519",
+              "webauthn-p256"
+            ]
+          },
+          "key_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "principal_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "public_key": {
+            "minLength": 32,
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "revoked"
+            ]
+          }
+        },
+        "required": [
+          "principal_id",
+          "key_id",
+          "algorithm",
+          "public_key",
+          "status"
+        ],
+        "type": "object"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "reason": {
+      "minLength": 20,
+      "type": "string"
+    },
+    "root_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]+$",
+      "type": "string"
+    },
+    "sequence": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "unratified",
+        "active",
+        "superseded"
+      ]
+    },
+    "threshold": {
+      "minimum": 2,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "api_version",
+    "kind",
+    "root_id",
+    "status",
+    "sequence",
+    "predecessor_root_digest",
+    "effective_at",
+    "expires_at",
+    "threshold",
+    "principals",
+    "allowed_signature_algorithms",
+    "reason"
+  ],
+  "title": "Develop Trust Root v1",
+  "type": "object"
+}

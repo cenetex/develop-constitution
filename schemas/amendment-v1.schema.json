@@ -1,0 +1,98 @@
+{
+  "$defs": {
+    "digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "$id": "https://github.com/cenetex/develop-constitution/schemas/amendment-v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "activate_after": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "alternatives": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "api_version": {
+      "const": "develop.cenetex/v1"
+    },
+    "authority_delta": {
+      "minLength": 20,
+      "type": "string"
+    },
+    "base_manifest_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "candidate_manifest_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "classification": {
+      "enum": [
+        "tightening",
+        "neutral",
+        "expansion"
+      ]
+    },
+    "classification_evidence_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "independent_security_review_digest": {
+      "$ref": "#/$defs/digest"
+    },
+    "issue": {
+      "format": "uri",
+      "type": "string"
+    },
+    "kind": {
+      "const": "AmendmentProposal"
+    },
+    "migration": {
+      "minLength": 10,
+      "type": "string"
+    },
+    "proposed_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "requesting_principal": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "rollback": {
+      "minLength": 10,
+      "type": "string"
+    },
+    "threat_model": {
+      "minLength": 20,
+      "type": "string"
+    }
+  },
+  "required": [
+    "api_version",
+    "kind",
+    "issue",
+    "requesting_principal",
+    "base_manifest_digest",
+    "candidate_manifest_digest",
+    "classification",
+    "classification_evidence_digest",
+    "proposed_at",
+    "activate_after",
+    "authority_delta",
+    "independent_security_review_digest",
+    "threat_model",
+    "migration",
+    "rollback",
+    "alternatives"
+  ],
+  "title": "Constitution Amendment Proposal v1",
+  "type": "object"
+}
