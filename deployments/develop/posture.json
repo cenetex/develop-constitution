@@ -1,0 +1,36 @@
+{
+  "activation_envelope_digest": null,
+  "api_version": "develop.cenetex/v1",
+  "baseline_maturity_level": "L0",
+  "constitution_revision": "1.0.0",
+  "constitution_source_digest": "sha256:5fe38ce2d899de2b60546c92ca77049e3637db6c9dacd033053d04f7a207d1c4",
+  "control_attestation_set_digest": null,
+  "effective_at": null,
+  "kind": "PostureActivation",
+  "known_control_gaps": [
+    "worker-identity-boundary",
+    "private-task-clone",
+    "default-deny-runtime",
+    "independent-verification",
+    "repository-rules"
+  ],
+  "mode": "quarantine",
+  "previous_posture_digest": null,
+  "reason": "Autonomous-system security controls are not independently proven.",
+  "release_manifest_digest": null,
+  "scoped_authorizations": [],
+  "sequence": 0,
+  "status": "proposed",
+  "tightening_denials": [
+    "network.egress",
+    "credential.consume",
+    "github.push",
+    "github.pull_request.create",
+    "github.merge",
+    "github.repository.settings",
+    "deployment.execute",
+    "governance.approve",
+    "governance.activate"
+  ],
+  "workspace_id": "develop"
+}

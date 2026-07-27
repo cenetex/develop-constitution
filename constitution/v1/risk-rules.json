@@ -1,0 +1,166 @@
+{
+  "api_version": "develop.cenetex/v1",
+  "defaults": {
+    "ambiguous_classification": "highest",
+    "unknown_change_kind": "R3",
+    "unknown_path": "R3"
+  },
+  "kind": "RiskRules",
+  "path_rules": [
+    {
+      "pattern": "docs/**",
+      "reason": "Documentation is inert unless another rule raises its risk.",
+      "risk": "R0"
+    },
+    {
+      "pattern": "**/*.md",
+      "reason": "Markdown is inert unless it is governance or generated input.",
+      "risk": "R0"
+    },
+    {
+      "pattern": "src/**",
+      "reason": "Ordinary application source begins at R1.",
+      "risk": "R1"
+    },
+    {
+      "pattern": "tests/**",
+      "reason": "Tests can change acceptance behavior and are executable.",
+      "risk": "R1"
+    },
+    {
+      "pattern": "**/requirements*.txt",
+      "reason": "Dependency changes alter the supply-chain boundary.",
+      "risk": "R2"
+    },
+    {
+      "pattern": "**/package.json",
+      "reason": "Dependency and script changes are sensitive.",
+      "risk": "R2"
+    },
+    {
+      "pattern": "**/*lock*",
+      "reason": "Lockfiles control dependency resolution.",
+      "risk": "R2"
+    },
+    {
+      "pattern": "**/migrations/**",
+      "reason": "Migrations alter persistent data.",
+      "risk": "R2"
+    },
+    {
+      "pattern": "**/infra/**",
+      "reason": "Infrastructure changes alter execution boundaries.",
+      "risk": "R2"
+    },
+    {
+      "pattern": ".github/**",
+      "reason": "Repository automation and settings are constitutional.",
+      "risk": "R3"
+    },
+    {
+      "pattern": ".agents/**",
+      "reason": "Workspace agent controls are governance.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "**/AGENTS.md",
+      "reason": "Agent instructions are governance.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "CONSTITUTION.md",
+      "reason": "The human-readable constitution is constitutional.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "constitution/**",
+      "reason": "Normative policy is constitutional.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "schemas/**",
+      "reason": "Schema changes alter what policy is accepted.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "trust/**",
+      "reason": "Trust roots determine ratification authority.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "releases/**",
+      "reason": "Release manifests and signatures authorize activation.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "tools/constitutionctl.py",
+      "reason": "The constitutional validator is part of the trust boundary.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "**/*credential*",
+      "reason": "Credential handling is constitutional.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "**/*secret*",
+      "reason": "Secret handling is constitutional.",
+      "risk": "R3"
+    },
+    {
+      "pattern": "**/*deploy*",
+      "reason": "Deployment authority is constitutional.",
+      "risk": "R3"
+    }
+  ],
+  "repository_floors": {
+    "cenetex/agentd": "R3",
+    "cenetex/develop-constitution": "R3"
+  },
+  "semantic_rules": [
+    {
+      "change_kind": "binary",
+      "minimum_risk": "R2"
+    },
+    {
+      "change_kind": "symlink",
+      "minimum_risk": "R3"
+    },
+    {
+      "change_kind": "gitlink",
+      "minimum_risk": "R3"
+    },
+    {
+      "change_kind": "executable-mode",
+      "minimum_risk": "R2"
+    },
+    {
+      "change_kind": "authentication",
+      "minimum_risk": "R3"
+    },
+    {
+      "change_kind": "authorization",
+      "minimum_risk": "R3"
+    },
+    {
+      "change_kind": "sandbox",
+      "minimum_risk": "R3"
+    },
+    {
+      "change_kind": "evidence",
+      "minimum_risk": "R3"
+    },
+    {
+      "change_kind": "repository-setting",
+      "minimum_risk": "R3"
+    },
+    {
+      "change_kind": "network-boundary",
+      "minimum_risk": "R2"
+    },
+    {
+      "change_kind": "persistent-data",
+      "minimum_risk": "R2"
+    }
+  ]
+}

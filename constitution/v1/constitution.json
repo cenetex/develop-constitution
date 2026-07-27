@@ -1,0 +1,1276 @@
+{
+  "amendment_policy": {
+    "agents_may_activate": false,
+    "expansion_cooling_period_seconds": 259200,
+    "governing_policy": "previous-active-constitution",
+    "independent_security_review": true,
+    "minimum_human_approvals": 2
+  },
+  "api_version": "develop.cenetex/v1",
+  "capabilities": {
+    "audit.append": {
+      "brokered": true,
+      "effect": "append",
+      "external": false,
+      "maximum_ttl_seconds": 21600,
+      "required_bindings": [
+        "task_or_change_id",
+        "principal",
+        "event_type",
+        "previous_event_digest",
+        "expires_at"
+      ]
+    },
+    "break_glass.invoke": {
+      "brokered": true,
+      "effect": "emergency",
+      "external": true,
+      "maximum_ttl_seconds": 3600,
+      "required_bindings": [
+        "human_principal",
+        "incident_id",
+        "operation",
+        "resource",
+        "expires_at"
+      ]
+    },
+    "candidate.execute": {
+      "brokered": false,
+      "effect": "execute",
+      "external": false,
+      "maximum_ttl_seconds": 21600,
+      "required_bindings": [
+        "task_id",
+        "environment_digest",
+        "expires_at"
+      ]
+    },
+    "capability.grant": {
+      "brokered": true,
+      "effect": "control",
+      "external": false,
+      "maximum_ttl_seconds": 3600,
+      "required_bindings": [
+        "task_id",
+        "capability",
+        "grantee",
+        "constitution_digest",
+        "expires_at"
+      ]
+    },
+    "credential.consume": {
+      "brokered": true,
+      "effect": "external",
+      "external": true,
+      "maximum_ttl_seconds": 900,
+      "required_bindings": [
+        "task_id",
+        "credential_class",
+        "operation",
+        "resource",
+        "expires_at"
+      ]
+    },
+    "deployment.execute": {
+      "brokered": true,
+      "effect": "external_write",
+      "external": true,
+      "maximum_ttl_seconds": 900,
+      "required_bindings": [
+        "task_id",
+        "environment",
+        "artifact_digest",
+        "operation",
+        "expires_at"
+      ]
+    },
+    "evidence.attest": {
+      "brokered": true,
+      "effect": "attest",
+      "external": false,
+      "maximum_ttl_seconds": 3600,
+      "required_bindings": [
+        "task_id",
+        "base_sha",
+        "head_sha",
+        "environment_digest",
+        "constitution_digest",
+        "expires_at"
+      ]
+    },
+    "git.commit": {
+      "brokered": true,
+      "effect": "write",
+      "external": false,
+      "maximum_ttl_seconds": 21600,
+      "required_bindings": [
+        "task_id",
+        "repository",
+        "branch",
+        "expires_at"
+      ]
+    },
+    "github.merge": {
+      "brokered": true,
+      "effect": "external_write",
+      "external": true,
+      "maximum_ttl_seconds": 300,
+      "required_bindings": [
+        "task_id",
+        "repository",
+        "pull_request",
+        "base_sha",
+        "head_sha",
+        "expires_at"
+      ]
+    },
+    "github.pull_request.create": {
+      "brokered": true,
+      "effect": "external_write",
+      "external": true,
+      "maximum_ttl_seconds": 900,
+      "required_bindings": [
+        "task_id",
+        "repository",
+        "base_sha",
+        "head_sha",
+        "expires_at"
+      ]
+    },
+    "github.pull_request.review": {
+      "brokered": true,
+      "effect": "external_write",
+      "external": true,
+      "maximum_ttl_seconds": 3600,
+      "required_bindings": [
+        "reviewer",
+        "repository",
+        "pull_request",
+        "head_sha",
+        "expires_at"
+      ]
+    },
+    "github.push": {
+      "brokered": true,
+      "effect": "external_write",
+      "external": true,
+      "maximum_ttl_seconds": 900,
+      "required_bindings": [
+        "task_id",
+        "repository",
+        "branch",
+        "head_sha",
+        "expires_at"
+      ]
+    },
+    "github.repository.settings": {
+      "brokered": true,
+      "effect": "external_write",
+      "external": true,
+      "maximum_ttl_seconds": 900,
+      "required_bindings": [
+        "issue",
+        "repository",
+        "operation",
+        "change_digest",
+        "expires_at"
+      ]
+    },
+    "governance.activate": {
+      "brokered": true,
+      "effect": "external_write",
+      "external": true,
+      "maximum_ttl_seconds": 900,
+      "required_bindings": [
+        "issue",
+        "human_principal",
+        "candidate_digest",
+        "deployment",
+        "expires_at"
+      ]
+    },
+    "governance.approve": {
+      "brokered": true,
+      "effect": "attest",
+      "external": true,
+      "maximum_ttl_seconds": 86400,
+      "required_bindings": [
+        "issue",
+        "human_principal",
+        "base_manifest_digest",
+        "candidate_digest",
+        "expires_at"
+      ]
+    },
+    "governance.propose": {
+      "brokered": false,
+      "effect": "propose",
+      "external": false,
+      "maximum_ttl_seconds": 21600,
+      "required_bindings": [
+        "issue",
+        "base_manifest_digest",
+        "candidate_digest",
+        "expires_at"
+      ]
+    },
+    "lease.manage": {
+      "brokered": true,
+      "effect": "control",
+      "external": false,
+      "maximum_ttl_seconds": 21600,
+      "required_bindings": [
+        "task_id",
+        "repository",
+        "clone_path",
+        "base_sha",
+        "expires_at"
+      ]
+    },
+    "network.egress": {
+      "brokered": true,
+      "effect": "external",
+      "external": true,
+      "maximum_ttl_seconds": 1800,
+      "required_bindings": [
+        "task_id",
+        "destination",
+        "operation",
+        "expires_at"
+      ]
+    },
+    "repository.read": {
+      "brokered": false,
+      "effect": "read",
+      "external": false,
+      "maximum_ttl_seconds": 21600,
+      "required_bindings": [
+        "task_id",
+        "repository",
+        "expires_at"
+      ]
+    },
+    "task.admit": {
+      "brokered": true,
+      "effect": "control",
+      "external": false,
+      "maximum_ttl_seconds": 3600,
+      "required_bindings": [
+        "task_id",
+        "issue_digest",
+        "base_sha",
+        "constitution_digest",
+        "expires_at"
+      ]
+    },
+    "task_clone.write": {
+      "brokered": false,
+      "effect": "write",
+      "external": false,
+      "maximum_ttl_seconds": 21600,
+      "required_bindings": [
+        "task_id",
+        "repository",
+        "clone_path",
+        "expires_at"
+      ]
+    },
+    "worker.self_promote": {
+      "brokered": false,
+      "effect": "control",
+      "external": false,
+      "maximum_ttl_seconds": 0,
+      "required_bindings": []
+    }
+  },
+  "clauses": {
+    "C-001": {
+      "accountable_role": "security_custodian",
+      "article": "Supremacy and fail-closed operation",
+      "control_ids": [
+        "policy-validation"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "high"
+      },
+      "strength": "MUST",
+      "subjects": [
+        "control_plane",
+        "publication_broker",
+        "merge_controller"
+      ],
+      "test_ids": [
+        "ADV-UNKNOWN-DENY"
+      ],
+      "text": "When policy, enforcement, evidence, or identity is missing, ambiguous, stale, or invalid, the more restrictive decision applies.",
+      "unwaivable": true
+    },
+    "C-002": {
+      "accountable_role": "security_custodian",
+      "article": "Worker credential boundary",
+      "control_ids": [
+        "worker-identity-boundary",
+        "default-deny-runtime"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST_NOT",
+      "subjects": [
+        "control_plane",
+        "worker"
+      ],
+      "test_ids": [
+        "ADV-NO-WORKER-CREDENTIALS"
+      ],
+      "text": "A worker must never receive credentials, the control-plane environment, signing material, or an ambient external capability.",
+      "unwaivable": true
+    },
+    "C-003": {
+      "accountable_role": "platform_administrator",
+      "article": "Workspace isolation",
+      "control_ids": [
+        "worker-identity-boundary",
+        "private-task-clone"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST_NOT",
+      "subjects": [
+        "worker"
+      ],
+      "test_ids": [
+        "ADV-NO-CANONICAL-WRITE"
+      ],
+      "text": "A worker must not write canonical repositories, shared Git metadata, governance, main, repository settings, another task, or control-plane state.",
+      "unwaivable": true
+    },
+    "C-004": {
+      "accountable_role": "human_owner",
+      "article": "Terminal task lifecycle",
+      "control_ids": [
+        "lease-revocation"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "high"
+      },
+      "strength": "MUST",
+      "subjects": [
+        "control_plane"
+      ],
+      "test_ids": [
+        "ADV-TERMINAL-LEASE"
+      ],
+      "text": "Expired, failed, cancelled, and merged tasks are terminal; retries require a new task identity, clone, lease, and capability set.",
+      "unwaivable": true
+    },
+    "C-005": {
+      "accountable_role": "security_custodian",
+      "article": "Independent evidence",
+      "control_ids": [
+        "independent-verification",
+        "sha-bound-publication"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST",
+      "subjects": [
+        "verifier",
+        "publication_broker",
+        "merge_controller"
+      ],
+      "test_ids": [
+        "ADV-STALE-SHA-DENY"
+      ],
+      "text": "Publication, merge, and deployment require independently generated evidence bound to the exact base SHA, head SHA, environment digest, and constitution digest.",
+      "unwaivable": true
+    },
+    "C-006": {
+      "accountable_role": "security_custodian",
+      "article": "Separation of duties",
+      "control_ids": [
+        "independent-verification",
+        "repository-rules"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST_NOT",
+      "subjects": [
+        "worker",
+        "control_plane"
+      ],
+      "test_ids": [
+        "ADV-NO-SELF-REVIEW"
+      ],
+      "text": "A producing worker must not verify, review, approve, publish, merge, deploy, or activate its own work.",
+      "unwaivable": true
+    },
+    "C-007": {
+      "accountable_role": "security_custodian",
+      "article": "Capability scope",
+      "control_ids": [
+        "capability-broker",
+        "append-only-audit"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST",
+      "subjects": [
+        "control_plane",
+        "publication_broker",
+        "merge_controller"
+      ],
+      "test_ids": [
+        "ADV-INCOMPLETE-GRANT-DENY"
+      ],
+      "text": "Every non-human capability is explicit, narrowly bound, time-limited, revocable, audited, and denied when any required binding is absent.",
+      "unwaivable": true
+    },
+    "C-008": {
+      "accountable_role": "platform_administrator",
+      "article": "Publication boundary",
+      "control_ids": [
+        "capability-broker",
+        "sha-bound-publication",
+        "serialized-merge"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST_NOT",
+      "subjects": [
+        "worker"
+      ],
+      "test_ids": [
+        "ADV-WORKER-PUBLICATION-DENY"
+      ],
+      "text": "Workers must never push, open pull requests, merge, deploy, change repository settings, or hold credentials that permit those actions.",
+      "unwaivable": true
+    },
+    "C-009": {
+      "accountable_role": "human_owner",
+      "article": "No self-promotion",
+      "control_ids": [
+        "maturity-ratification"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST_NOT",
+      "subjects": [
+        "control_plane",
+        "worker",
+        "publication_broker",
+        "merge_controller"
+      ],
+      "test_ids": [
+        "ADV-NO-SELF-PROMOTION"
+      ],
+      "text": "No agent, service, control plane, or worker may approve or activate an increase in its own authority.",
+      "unwaivable": true
+    },
+    "C-010": {
+      "accountable_role": "security_custodian",
+      "article": "Constitutional amendment",
+      "control_ids": [
+        "constitutional-release",
+        "maturity-ratification"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST",
+      "subjects": [
+        "human_owner",
+        "security_custodian",
+        "platform_administrator"
+      ],
+      "test_ids": [
+        "ADV-PREDECESSOR-GOVERNS"
+      ],
+      "text": "An amendment is evaluated under the previously active constitution and binds its base manifest digest, candidate digest, independent review, human approvals, and activation delay.",
+      "unwaivable": true
+    },
+    "C-011": {
+      "accountable_role": "security_custodian",
+      "article": "Audit integrity",
+      "control_ids": [
+        "append-only-audit"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST",
+      "subjects": [
+        "control_plane",
+        "publication_broker",
+        "merge_controller",
+        "platform_administrator"
+      ],
+      "test_ids": [
+        "ADV-AUDIT-GAP-DENY"
+      ],
+      "text": "Every privileged action and lifecycle transition is linked to a task, change, or incident and appended to tamper-evident audit history; audit failure denies the action.",
+      "unwaivable": true
+    },
+    "C-012": {
+      "accountable_role": "security_custodian",
+      "article": "Human-only break glass",
+      "control_ids": [
+        "break-glass-control"
+      ],
+      "on_violation": {
+        "decision": "deny",
+        "demote_to": "L0",
+        "incident_severity": "critical"
+      },
+      "strength": "MUST_NOT",
+      "subjects": [
+        "human_owner",
+        "platform_administrator",
+        "worker"
+      ],
+      "test_ids": [
+        "ADV-BREAK-GLASS-HUMAN-ONLY"
+      ],
+      "text": "Break-glass authority must not be delegated to a worker and cannot waive another unwaivable clause.",
+      "unwaivable": true
+    }
+  },
+  "control_attestation_policy": {
+    "independent_verifier_required": true,
+    "maximum_age_seconds": 86400,
+    "required_bindings": [
+      "constitution_manifest_digest",
+      "control_id",
+      "implementation_digest",
+      "environment_digest",
+      "repository",
+      "risk_class",
+      "capability",
+      "runner_identity",
+      "verifier_identity",
+      "test_evidence_digest",
+      "result",
+      "observed_at",
+      "expires_at",
+      "verifier_signature_envelope_digest"
+    ],
+    "required_for_active_maturity": true,
+    "schema": "schemas/control-attestation-v1.schema.json"
+  },
+  "controls": {
+    "append-only-audit": {
+      "enforcement_point": "every-privileged-action",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "security_custodian"
+    },
+    "break-glass-control": {
+      "enforcement_point": "emergency-access",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "security_custodian"
+    },
+    "capability-broker": {
+      "enforcement_point": "privileged-operation",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "control_plane"
+    },
+    "constitutional-release": {
+      "enforcement_point": "policy-activation",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "platform_administrator"
+    },
+    "default-deny-runtime": {
+      "enforcement_point": "sandbox",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "control_plane"
+    },
+    "deployment-rollback": {
+      "enforcement_point": "deployment",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "platform_administrator"
+    },
+    "independent-verification": {
+      "enforcement_point": "verification",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "security_custodian"
+    },
+    "lease-revocation": {
+      "enforcement_point": "supervisor",
+      "fail_mode": "terminate",
+      "kind": "preventive",
+      "owner": "control_plane"
+    },
+    "maturity-ratification": {
+      "enforcement_point": "authority-activation",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "security_custodian"
+    },
+    "policy-validation": {
+      "enforcement_point": "admission",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "security_custodian"
+    },
+    "private-task-clone": {
+      "enforcement_point": "task-launch",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "control_plane"
+    },
+    "repository-rules": {
+      "enforcement_point": "github",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "platform_administrator"
+    },
+    "serialized-merge": {
+      "enforcement_point": "merge",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "merge_controller"
+    },
+    "sha-bound-publication": {
+      "enforcement_point": "publication",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "publication_broker"
+    },
+    "signed-provenance": {
+      "enforcement_point": "release",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "security_custodian"
+    },
+    "worker-identity-boundary": {
+      "enforcement_point": "kernel",
+      "fail_mode": "deny",
+      "kind": "preventive",
+      "owner": "platform_administrator"
+    }
+  },
+  "defaults": {
+    "control_failure": "deny",
+    "decision": "deny",
+    "signature_failure": "deny",
+    "unknown_capability": "deny",
+    "unknown_risk": "R3"
+  },
+  "exception_policy": {
+    "maximum_ttl_seconds": 14400,
+    "renewal": "new-proposal-required",
+    "requires_detached_human_approval": true,
+    "requires_exact_scope": true,
+    "unwaivable_clause_exceptions": "deny"
+  },
+  "incident_policy": {
+    "credential_rotation_after_break_glass": true,
+    "postmortem_deadline_seconds": 259200,
+    "restoration_requires_independent_review": true,
+    "suspected_boundary_failure": "freeze-and-demote-L0"
+  },
+  "invariant": "A malicious, compromised, or incompetent worker may produce bad code, but cannot escape its task boundary, obtain ambient authority, falsify acceptance evidence, alter governance, or publish a change.",
+  "kind": "Constitution",
+  "lifecycle": {
+    "initial_state": "queued",
+    "states": [
+      "queued",
+      "admitted",
+      "leased",
+      "running",
+      "verifying",
+      "review",
+      "merge-ready",
+      "merged",
+      "failed",
+      "cancelled",
+      "expired"
+    ],
+    "terminal_states": [
+      "merged",
+      "failed",
+      "cancelled",
+      "expired"
+    ],
+    "transitions": {
+      "admitted": [
+        "leased",
+        "cancelled"
+      ],
+      "cancelled": [],
+      "expired": [],
+      "failed": [],
+      "leased": [
+        "running",
+        "cancelled",
+        "expired"
+      ],
+      "merge-ready": [
+        "merged",
+        "failed",
+        "cancelled",
+        "expired"
+      ],
+      "merged": [],
+      "queued": [
+        "admitted",
+        "cancelled"
+      ],
+      "review": [
+        "merge-ready",
+        "failed",
+        "cancelled",
+        "expired"
+      ],
+      "running": [
+        "verifying",
+        "failed",
+        "cancelled",
+        "expired"
+      ],
+      "verifying": [
+        "review",
+        "failed",
+        "cancelled",
+        "expired"
+      ]
+    }
+  },
+  "maturity_levels": {
+    "L0": {
+      "authority": "Read-only analysis and disposable experiments; a human mediates every publication.",
+      "maximum_autonomous_mutation_risk": "none",
+      "minimum_governed_tasks": 0,
+      "minimum_observation_days": 0,
+      "name": "quarantine",
+      "nonhuman_capability_ceiling": [
+        "repository.read"
+      ],
+      "promotion_approvals": 2,
+      "rank": 0,
+      "required_controls": []
+    },
+    "L1": {
+      "authority": "A worker may edit, execute tests, and produce a candidate commit only in a private task clone without network or credentials.",
+      "maximum_autonomous_mutation_risk": "R1",
+      "minimum_adversarial_tests": 25,
+      "minimum_governed_tasks": 0,
+      "minimum_observation_days": 0,
+      "name": "contained-worker",
+      "nonhuman_capability_ceiling": [
+        "repository.read",
+        "task_clone.write",
+        "candidate.execute",
+        "git.commit",
+        "task.admit",
+        "lease.manage",
+        "capability.grant",
+        "evidence.attest",
+        "audit.append"
+      ],
+      "promotion_approvals": 2,
+      "rank": 1,
+      "required_controls": [
+        "worker-identity-boundary",
+        "private-task-clone",
+        "default-deny-runtime",
+        "lease-revocation"
+      ]
+    },
+    "L2": {
+      "authority": "The publication broker may push and open draft pull requests for R0 and R1; humans approve every merge.",
+      "maximum_autonomous_mutation_risk": "R1",
+      "minimum_governed_tasks": 30,
+      "minimum_observation_days": 30,
+      "name": "supervised-delivery",
+      "nonhuman_capability_ceiling": [
+        "repository.read",
+        "task_clone.write",
+        "candidate.execute",
+        "git.commit",
+        "task.admit",
+        "lease.manage",
+        "capability.grant",
+        "evidence.attest",
+        "audit.append",
+        "github.push",
+        "github.pull_request.create"
+      ],
+      "promotion_approvals": 2,
+      "rank": 2,
+      "required_controls": [
+        "worker-identity-boundary",
+        "private-task-clone",
+        "default-deny-runtime",
+        "lease-revocation",
+        "independent-verification",
+        "repository-rules",
+        "sha-bound-publication",
+        "capability-broker",
+        "append-only-audit"
+      ]
+    },
+    "L3": {
+      "authority": "R0 and R1 may auto-merge after independent verification and review; R2 and R3 remain human-approved.",
+      "maximum_autonomous_mutation_risk": "R1",
+      "minimum_governed_tasks": 100,
+      "minimum_observation_days": 60,
+      "minimum_repositories": 3,
+      "name": "bounded-autonomy",
+      "nonhuman_capability_ceiling": [
+        "repository.read",
+        "task_clone.write",
+        "candidate.execute",
+        "git.commit",
+        "task.admit",
+        "lease.manage",
+        "capability.grant",
+        "evidence.attest",
+        "audit.append",
+        "github.push",
+        "github.pull_request.create",
+        "github.merge"
+      ],
+      "promotion_approvals": 2,
+      "rank": 3,
+      "required_controls": [
+        "worker-identity-boundary",
+        "private-task-clone",
+        "default-deny-runtime",
+        "independent-verification",
+        "repository-rules",
+        "sha-bound-publication",
+        "capability-broker",
+        "serialized-merge",
+        "lease-revocation",
+        "append-only-audit"
+      ]
+    },
+    "L4": {
+      "authority": "Approved R2 operations and non-critical deployments may be automated; R3 remains human-only.",
+      "maximum_autonomous_mutation_risk": "R2",
+      "minimum_governed_tasks": 250,
+      "minimum_observation_days": 180,
+      "minimum_repositories": 5,
+      "name": "production-autonomy",
+      "nonhuman_capability_ceiling": [
+        "repository.read",
+        "task_clone.write",
+        "candidate.execute",
+        "git.commit",
+        "task.admit",
+        "lease.manage",
+        "capability.grant",
+        "evidence.attest",
+        "audit.append",
+        "network.egress",
+        "credential.consume",
+        "github.push",
+        "github.pull_request.create",
+        "github.merge",
+        "deployment.execute"
+      ],
+      "promotion_approvals": 2,
+      "rank": 4,
+      "required_controls": [
+        "worker-identity-boundary",
+        "private-task-clone",
+        "default-deny-runtime",
+        "lease-revocation",
+        "capability-broker",
+        "sha-bound-publication",
+        "signed-provenance",
+        "independent-verification",
+        "repository-rules",
+        "serialized-merge",
+        "deployment-rollback",
+        "append-only-audit"
+      ]
+    }
+  },
+  "metadata": {
+    "name": "develop",
+    "revision": "1.0.0",
+    "status": "proposed",
+    "supersedes_manifest_digest": null
+  },
+  "risk_classes": {
+    "R0": {
+      "description": "Inert prose and assets, excluding governance and generated artifacts.",
+      "minimum_maturity_for_automated_publication": "L3",
+      "name": "non-executable",
+      "rank": 0
+    },
+    "R1": {
+      "description": "Bounded application code without security, deployment, persistence, dependency, or data-boundary impact.",
+      "minimum_maturity_for_automated_publication": "L3",
+      "name": "ordinary-code",
+      "rank": 1
+    },
+    "R2": {
+      "description": "Dependencies, network surfaces, persistence, migrations, privacy, cryptography, or infrastructure.",
+      "minimum_maturity_for_automated_publication": "L4",
+      "name": "sensitive",
+      "rank": 2
+    },
+    "R3": {
+      "description": "Control plane, identity, credentials, CI, sandboxing, governance, evidence, repository settings, merge, or deployment authority.",
+      "minimum_maturity_for_automated_publication": null,
+      "name": "constitutional",
+      "rank": 3
+    }
+  },
+  "roles": {
+    "control_plane": {
+      "absolute_denials": [
+        "candidate.execute",
+        "governance.approve",
+        "governance.activate",
+        "worker.self_promote"
+      ],
+      "eligible_capabilities": [
+        "repository.read",
+        "task.admit",
+        "lease.manage",
+        "capability.grant",
+        "audit.append"
+      ],
+      "principal_kinds": [
+        "service",
+        "process"
+      ],
+      "separated_from": [
+        {
+          "role": "worker",
+          "scope": "task"
+        },
+        {
+          "role": "verifier",
+          "scope": "task"
+        }
+      ]
+    },
+    "human_owner": {
+      "absolute_denials": [
+        "worker.self_promote"
+      ],
+      "eligible_capabilities": [
+        "governance.propose",
+        "governance.approve",
+        "break_glass.invoke"
+      ],
+      "principal_kinds": [
+        "human"
+      ],
+      "separated_from": []
+    },
+    "merge_controller": {
+      "absolute_denials": [
+        "candidate.execute",
+        "github.pull_request.review",
+        "governance.approve",
+        "governance.activate"
+      ],
+      "eligible_capabilities": [
+        "github.merge",
+        "audit.append"
+      ],
+      "principal_kinds": [
+        "service",
+        "process"
+      ],
+      "separated_from": [
+        {
+          "role": "worker",
+          "scope": "task"
+        },
+        {
+          "role": "reviewer",
+          "scope": "task"
+        }
+      ]
+    },
+    "platform_administrator": {
+      "absolute_denials": [
+        "worker.self_promote"
+      ],
+      "eligible_capabilities": [
+        "github.repository.settings",
+        "deployment.execute",
+        "governance.activate"
+      ],
+      "principal_kinds": [
+        "human"
+      ],
+      "separated_from": [
+        {
+          "role": "worker",
+          "scope": "task"
+        }
+      ]
+    },
+    "publication_broker": {
+      "absolute_denials": [
+        "candidate.execute",
+        "github.pull_request.review",
+        "github.merge",
+        "governance.approve",
+        "governance.activate"
+      ],
+      "eligible_capabilities": [
+        "github.push",
+        "github.pull_request.create",
+        "audit.append"
+      ],
+      "principal_kinds": [
+        "service",
+        "process"
+      ],
+      "separated_from": [
+        {
+          "role": "worker",
+          "scope": "task"
+        }
+      ]
+    },
+    "reviewer": {
+      "absolute_denials": [
+        "worker.self_promote"
+      ],
+      "eligible_capabilities": [
+        "repository.read",
+        "github.pull_request.review"
+      ],
+      "principal_kinds": [
+        "human"
+      ],
+      "separated_from": [
+        {
+          "role": "worker",
+          "scope": "task"
+        }
+      ]
+    },
+    "security_custodian": {
+      "absolute_denials": [
+        "worker.self_promote"
+      ],
+      "eligible_capabilities": [
+        "governance.approve",
+        "github.pull_request.review"
+      ],
+      "principal_kinds": [
+        "human"
+      ],
+      "separated_from": [
+        {
+          "role": "worker",
+          "scope": "task"
+        },
+        {
+          "role": "publication_broker",
+          "scope": "constitutional_change"
+        }
+      ]
+    },
+    "verifier": {
+      "absolute_denials": [
+        "github.push",
+        "github.merge",
+        "governance.approve",
+        "governance.activate"
+      ],
+      "eligible_capabilities": [
+        "repository.read",
+        "candidate.execute",
+        "evidence.attest",
+        "audit.append"
+      ],
+      "principal_kinds": [
+        "service",
+        "process"
+      ],
+      "separated_from": [
+        {
+          "role": "worker",
+          "scope": "task"
+        }
+      ]
+    },
+    "worker": {
+      "absolute_denials": [
+        "credential.consume",
+        "github.push",
+        "github.pull_request.create",
+        "github.pull_request.review",
+        "github.merge",
+        "github.repository.settings",
+        "deployment.execute",
+        "governance.approve",
+        "governance.activate",
+        "worker.self_promote",
+        "break_glass.invoke"
+      ],
+      "eligible_capabilities": [
+        "repository.read",
+        "task_clone.write",
+        "candidate.execute",
+        "git.commit",
+        "governance.propose"
+      ],
+      "principal_kinds": [
+        "process"
+      ],
+      "separated_from": [
+        {
+          "role": "verifier",
+          "scope": "task"
+        },
+        {
+          "role": "reviewer",
+          "scope": "task"
+        },
+        {
+          "role": "publication_broker",
+          "scope": "task"
+        },
+        {
+          "role": "merge_controller",
+          "scope": "task"
+        }
+      ]
+    }
+  },
+  "scope": {
+    "resource_kinds": [
+      "repository",
+      "task_clone",
+      "credential",
+      "network",
+      "github",
+      "deployment",
+      "governance"
+    ],
+    "workspace_id": "develop"
+  },
+  "tests": {
+    "ADV-AUDIT-GAP-DENY": {
+      "description": "An unavailable or unlinked audit sink blocks privileged action.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "external:agentd-boundary-suite",
+      "tier": "platform"
+    },
+    "ADV-BREAK-GLASS-HUMAN-ONLY": {
+      "description": "Break-glass requests by non-human principals are rejected.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "external:agentd-integration-suite",
+      "tier": "integration"
+    },
+    "ADV-INCOMPLETE-GRANT-DENY": {
+      "description": "A capability with any missing exact binding is rejected.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "tests/test_constitution.py",
+      "tier": "model"
+    },
+    "ADV-NO-CANONICAL-WRITE": {
+      "description": "A worker cannot mutate canonical or shared Git state.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "external:agentd-boundary-suite",
+      "tier": "platform"
+    },
+    "ADV-NO-SELF-PROMOTION": {
+      "description": "A component cannot approve or activate its own authority increase.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "external:agentd-integration-suite",
+      "tier": "integration"
+    },
+    "ADV-NO-SELF-REVIEW": {
+      "description": "The producing principal cannot verify or review its own task.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "external:agentd-integration-suite",
+      "tier": "integration"
+    },
+    "ADV-NO-WORKER-CREDENTIALS": {
+      "description": "A worker cannot observe broker or daemon credentials.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "external:agentd-boundary-suite",
+      "tier": "platform"
+    },
+    "ADV-PREDECESSOR-GOVERNS": {
+      "description": "Candidate amendment policy cannot govern its own ratification.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "tests/test_constitution.py",
+      "tier": "model"
+    },
+    "ADV-STALE-SHA-DENY": {
+      "description": "Evidence and approval for another SHA are rejected.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "external:agentd-integration-suite",
+      "tier": "integration"
+    },
+    "ADV-TERMINAL-LEASE": {
+      "description": "Terminal task states reject every subsequent transition.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "tests/test_constitution.py",
+      "tier": "model"
+    },
+    "ADV-UNKNOWN-DENY": {
+      "description": "Unknown actions, risks, references, and fields are denied.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "tests/test_constitution.py",
+      "tier": "model"
+    },
+    "ADV-WORKER-PUBLICATION-DENY": {
+      "description": "A worker cannot receive an external publication capability.",
+      "evidence_schema": "schemas/control-attestation-v1.schema.json",
+      "kind": "adversarial",
+      "runner": "external:agentd-boundary-suite",
+      "tier": "platform"
+    }
+  }
+}

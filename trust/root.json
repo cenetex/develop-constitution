@@ -1,0 +1,17 @@
+{
+  "allowed_signature_algorithms": [
+    "ssh-ed25519",
+    "webauthn-p256"
+  ],
+  "api_version": "develop.cenetex/v1",
+  "effective_at": null,
+  "expires_at": null,
+  "kind": "TrustRoot",
+  "predecessor_root_digest": null,
+  "principals": [],
+  "reason": "Independent human custodians and public verification keys have not yet been ratified.",
+  "root_id": "develop-genesis-candidate",
+  "sequence": 0,
+  "status": "unratified",
+  "threshold": 2
+}
