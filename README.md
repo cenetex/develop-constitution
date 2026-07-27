@@ -23,10 +23,21 @@ approve, or activate one.
 
 Closed artifact schemas are included by
 [issue #3](https://github.com/cenetex/develop-constitution/issues/3). Candidate
-validation remains isolated in
-[issue #2](https://github.com/cenetex/develop-constitution/issues/2): it is
-model checking, not ratification evidence. Only a separately controlled
-verifier may bind the active predecessor.
+validation and CI are included by
+[issue #2](https://github.com/cenetex/develop-constitution/issues/2). Passing
+them is model checking, not ratification evidence. The base-revision validator
+is defense in depth; only a separately controlled verifier may bind the active
+predecessor.
+
+## Local verification
+
+```console
+python3 tools/constitutionctl.py lint --root .
+python3 tools/constitutionctl.py render --root . --check
+python3 -m unittest discover -s tests -v
+python3 -m compileall -q tools tests
+git diff --check
+```
 
 ## Status
 

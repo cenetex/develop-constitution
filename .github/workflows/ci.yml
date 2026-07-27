@@ -1,0 +1,62 @@
+name: Candidate constitutional checks
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: constitution-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  candidate-structural-check:
+    name: candidate-structural-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the exact revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.13"
+      - name: Run base-revision policy as defense in depth
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          previous="$(mktemp -d)"
+          git worktree add --detach "$previous" "$BASE_SHA"
+          if [ -f "$previous/tools/constitutionctl.py" ]; then
+            python "$previous/tools/constitutionctl.py" lint \
+              --root "$GITHUB_WORKSPACE" --schema-root "$previous"
+            python "$previous/tools/constitutionctl.py" render \
+              --root "$GITHUB_WORKSPACE" --check
+          else
+            echo "Genesis has no predecessor validator; external ratification remains mandatory."
+          fi
+      - name: Validate candidate constitutional sources
+        run: python tools/constitutionctl.py lint --root .
+      - name: Reject rendered-document drift
+        run: python tools/constitutionctl.py render --root . --check
+      - name: Run candidate policy-model unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Syntax-check candidate tooling
+        run: python -m compileall -q tools tests
+      - name: Check committed whitespace
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ -n "$BASE_SHA" ]; then
+            git diff --check "$BASE_SHA...HEAD"
+          else
+            git diff-tree --check --root HEAD
+          fi
