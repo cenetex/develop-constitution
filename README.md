@@ -63,5 +63,7 @@ The `cenetex/agent` runtime may still create branches and pull requests, run
 checks, and report status. It must use native GitHub merge and deployment state
 instead of maintaining a second governance control plane.
 
-See `AGENTS.md` for the short workspace policy and
-`DEVELOP_REPO_HYGIENE_CONTRACT.md` for repository hygiene.
+See `AGENTS.md` for the short workspace policy,
+`DEVELOP_REPO_HYGIENE_CONTRACT.md` for repository hygiene, and
+`INTEROP_CONTRACTS.md` for the shared log, identity, and protocol contracts
+between repositories.
